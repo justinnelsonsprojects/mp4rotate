@@ -1,0 +1,35 @@
+#include <winver.h>
+#include "resource.h"
+
+IDI_RIGHT_DARK  ICON "icons\\rotate_right_dark.ico"
+IDI_LEFT_DARK   ICON "icons\\rotate_left_dark.ico"
+IDI_RIGHT_LIGHT ICON "icons\\rotate_right_light.ico"
+IDI_LEFT_LIGHT  ICON "icons\\rotate_left_light.ico"
+IDI_180_DARK    ICON "icons\\rotate_180_dark.ico"
+IDI_180_LIGHT   ICON "icons\\rotate_180_light.ico"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_DLL
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "JRN Enterprise Inc"
+            VALUE "FileDescription", "MP4 Rotate Explorer context menu"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "mp4rotate_shell.dll"
+            VALUE "LegalCopyright", "Copyright (c) JRN Enterprise Inc"
+            VALUE "OriginalFilename", "mp4rotate_shell.dll"
+            VALUE "ProductName", "MP4 Rotate"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

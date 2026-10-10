@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sparse MSIX package. It contains only this manifest and the logos; the actual files stay
+  in the install folder ("external location") and are registered with:
+    Add-AppxPackage -Path mp4rotate.msix -ExternalLocation <install folder>
+  The package exists to give the context menu handler an identity, which Windows 11
+  requires for commands in the main (non-"Show more options") context menu.
+
+  Publisher MUST exactly match the subject of the certificate that signs mp4rotate.msix.
+-->
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
+  xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap10 desktop4 desktop5 com rescap">
+
+  <Identity
+    Name="JRNEnterprise.mp4rotate"
+    Publisher="CN=JRN Enterprise Inc, O=JRN Enterprise Inc, L=Hammond, S=Indiana, C=US"
+    Version="1.0.3.0"
+    ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>MP4 Rotate</DisplayName>
+    <PublisherDisplayName>JRN Enterprise Inc</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <uap10:AllowExternalContent>true</uap10:AllowExternalContent>
+  </Properties>
+
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+
+  <Applications>
+    <Application Id="mp4rotate" Executable="mp4rotate.exe"
+                 uap10:TrustLevel="mediumIL" uap10:RuntimeBehavior="win32App">
+      <uap:VisualElements
+        DisplayName="MP4 Rotate"
+        Description="Lossless MP4 rotation"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        AppListEntry="none" />
+      <Extensions>
+        <desktop4:Extension Category="windows.fileExplorerContextMenus">
+          <desktop4:FileExplorerContextMenus>
+            <desktop5:ItemType Type=".mp4">
+              <!-- One command with its own submenu (see shell\mp4rotate_shell.cpp). -->
+              <desktop5:Verb Id="mp4rotate" Clsid="63250DD9-966C-4225-8719-C7FC5F4FED90" />
+            </desktop5:ItemType>
+          </desktop4:FileExplorerContextMenus>
+        </desktop4:Extension>
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <com:SurrogateServer DisplayName="MP4 Rotate context menu">
+              <com:Class Id="63250DD9-966C-4225-8719-C7FC5F4FED90" Path="mp4rotate_shell.dll" ThreadingModel="STA" />
+            </com:SurrogateServer>
+          </com:ComServer>
+        </com:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+</Package>

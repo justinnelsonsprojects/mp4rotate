@@ -1,0 +1,5 @@
+[Files]
+"package\AppxManifest.xml" "AppxManifest.xml"
+"package\Assets\Square44x44Logo.png" "Assets\Square44x44Logo.png"
+"package\Assets\Square150x150Logo.png" "Assets\Square150x150Logo.png"
+"package\Assets\StoreLogo.png" "Assets\StoreLogo.png"
