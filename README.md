@@ -1,11 +1,11 @@
-﻿# MP4 Rotate
+# MP4 Rotate
 
 Rotate MP4 videos from the Windows Explorer right-click menu, the same way Windows lets you rotate photos.
 
 Right-click one or more `.mp4` files and choose **MP4 Rotate â†’ Rotate left / Rotate right / Rotate 180**.
 
 Written by Justin Nelson with help from [Claude Code](https://claude.com/claude-code) for the
-**JustinNelsonsProjects** YouTube channel. More projects at [JustinNelsonsProjects.com](https://justinnelsonsprojects.com).
+[**JustinNelsonsProjects** YouTube channel](https://www.youtube.com/@JustinNelsonsProjects). More projects at [JustinNelsonsProjects.com](https://justinnelsonsprojects.com).
 
 ## Features
 
