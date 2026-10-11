@@ -42,7 +42,7 @@ It's a windowless program (so Explorer never flashes a console window). In Power
 
 ## How it works
 
-Every MP4 track has a track header box (`moov/trak/tkhd`) containing a 3Ã—3 matrix that tells players how
+Every MP4 track has a track header box (`moov/trak/tkhd`) containing a 3x3 matrix that tells players how
 to transform the video when displaying it. Phones don't actually record portrait video sideways; they
 record in the sensor's orientation and set this matrix. MP4 Rotate:
 
