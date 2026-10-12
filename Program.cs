@@ -100,7 +100,7 @@ static partial class Program
         if (hasConsole)
             Console.Error.WriteLine(message);
         else
-            MessageBoxW(IntPtr.Zero, message, "MP4 Rotate", MB_ICONERROR);
+            MessageBoxW(IntPtr.Zero, message, "MP4/MOV Rotate", MB_ICONERROR);
     }
 
     const int ATTACH_PARENT_PROCESS = -1;

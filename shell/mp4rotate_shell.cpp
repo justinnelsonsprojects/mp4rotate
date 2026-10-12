@@ -16,6 +16,7 @@
 #include <wrl/client.h>
 #include <string>
 #include <vector>
+#include <cwctype>
 #include "resource.h"
 
 #pragma comment(lib, "shlwapi.lib")
@@ -60,7 +61,7 @@ static void Launch(std::wstring commandLine)
     }
     else
     {
-        MessageBoxW(nullptr, L"Could not start mp4rotate.exe. Try reinstalling MP4 Rotate.", L"MP4 Rotate", MB_ICONERROR);
+        MessageBoxW(nullptr, L"Could not start mp4rotate.exe. Try reinstalling MP4/MOV Rotate.", L"MP4/MOV Rotate", MB_ICONERROR);
     }
 }
 
@@ -250,6 +251,46 @@ class __declspec(uuid("63250DD9-966C-4225-8719-C7FC5F4FED90")) MenuCommand final
     int IconId(bool lightTheme) const override { return lightTheme ? IDI_RIGHT_DARK : IDI_RIGHT_LIGHT; }
 
 public:
+    // Named after what was right-clicked: "MP4 Rotate", "MOV Rotate", "M4V Rotate", "3GP Rotate",
+    // or "Video Rotate" when the selection mixes file types.
+    IFACEMETHODIMP GetTitle(IShellItemArray* items, PWSTR* name) override
+    {
+        std::wstring ext;   // the selection's common extension, without the dot
+        bool mixed = false;
+        DWORD count = 0;
+        if (items && SUCCEEDED(items->GetCount(&count)))
+        {
+            for (DWORD i = 0; i < count && !mixed; i++)
+            {
+                ComPtr<IShellItem> item;
+                PWSTR fileName = nullptr;
+                if (FAILED(items->GetItemAt(i, &item)) || FAILED(item->GetDisplayName(SIGDN_PARENTRELATIVEPARSING, &fileName)))
+                    continue;
+                std::wstring thisExt = PathFindExtensionW(fileName);
+                CoTaskMemFree(fileName);
+                if (!thisExt.empty())
+                    thisExt.erase(0, 1);
+                if (ext.empty())
+                    ext = thisExt;
+                else if (_wcsicmp(ext.c_str(), thisExt.c_str()) != 0)
+                    mixed = true;
+            }
+        }
+
+        std::wstring title;
+        if (mixed)
+            title = L"Video Rotate";
+        else if (ext.empty())
+            title = L"MP4 Rotate";
+        else
+        {
+            for (auto& c : ext)
+                c = towupper(c);
+            title = ext + L" Rotate";
+        }
+        return SHStrDupW(title.c_str(), name);
+    }
+
     IFACEMETHODIMP GetFlags(EXPCMDFLAGS* flags) override
     {
         *flags = ECF_HASSUBCOMMANDS;

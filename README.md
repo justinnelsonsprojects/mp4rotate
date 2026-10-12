@@ -1,8 +1,10 @@
-# MP4 Rotate
+# MP4/MOV Rotate
 
-Rotate MP4 videos from the Windows Explorer right-click menu, the same way Windows lets you rotate photos.
+Rotate phone videos from the Windows Explorer right-click menu, the same way Windows lets you rotate photos.
 
 Right-click one or more `.mp4` files and choose **MP4 Rotate -&gt; Rotate left / Rotate right / Rotate 180**.
+Also works with iPhone/QuickTime `.mov`, `.m4v` and `.3gp` videos: the menu is named after the type you
+right-click (**MOV Rotate**, **M4V Rotate**, ...), or **Video Rotate** for a mix.
 
 Written by Justin Nelson with help from [Claude Code](https://claude.com/claude-code) for the
 [**JustinNelsonsProjects** YouTube channel](https://www.youtube.com/@JustinNelsonsProjects). More projects at [JustinNelsonsProjects.com](https://justinnelsonsprojects.com).
@@ -10,10 +12,12 @@ Written by Justin Nelson with help from [Claude Code](https://claude.com/claude-
 ## Features
 
 - **Lossless and instant.** Nothing is re-encoded. The video's rotation is stored as a small
-  transformation matrix in the MP4 container, and MP4 Rotate rewrites only those 36 bytes per
+  transformation matrix in the MP4/MOV container, and MP4/MOV Rotate rewrites only those 36 bytes per
   video track, in place. A 5 GB 4K video rotates as fast as a 5 MB one.
 - **Works with H.264 and HEVC (H.265)** alike, since the rotation lives in the container, not the video stream.
-  Built and tested with videos from a Samsung Galaxy S24.
+  Built and tested with videos from a Samsung Galaxy S24, an iPhone 4S and two dashcams.
+- **MP4, MOV, M4V and 3GP.** These all share the same ISO/QuickTime file structure (MP4 grew out of
+  Apple's QuickTime format), so the same lossless edit works for all of them.
 - **Windows 11 main context menu** (not just "Show more options"), with light/dark-mode icons.
   On Windows 10 the commands appear in the classic context menu.
 - **Multiple files at once.** Select several videos and rotate them in one go.
@@ -42,9 +46,9 @@ It's a windowless program (so Explorer never flashes a console window). In Power
 
 ## How it works
 
-Every MP4 track has a track header box (`moov/trak/tkhd`) containing a 3x3 matrix that tells players how
+Every MP4/MOV track has a track header box (`moov/trak/tkhd`) containing a 3x3 matrix that tells players how
 to transform the video when displaying it. Phones don't actually record portrait video sideways; they
-record in the sensor's orientation and set this matrix. MP4 Rotate:
+record in the sensor's orientation and set this matrix. MP4/MOV Rotate:
 
 1. Walks the top-level boxes to find `moov`, skipping the (huge) `mdat` media data without reading it.
 2. Finds every video track (`hdlr` type `vide`) and reads its current rotation from the matrix.

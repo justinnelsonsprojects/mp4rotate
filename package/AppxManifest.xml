@@ -21,11 +21,11 @@
   <Identity
     Name="JRNEnterprise.mp4rotate"
     Publisher="CN=JRN Enterprise Inc, O=JRN Enterprise Inc, L=Hammond, S=Indiana, C=US"
-    Version="1.0.3.0"
+    Version="1.1.0.1"
     ProcessorArchitecture="x64" />
 
   <Properties>
-    <DisplayName>MP4 Rotate</DisplayName>
+    <DisplayName>MP4/MOV Rotate</DisplayName>
     <PublisherDisplayName>JRN Enterprise Inc</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
     <uap10:AllowExternalContent>true</uap10:AllowExternalContent>
@@ -47,8 +47,8 @@
     <Application Id="mp4rotate" Executable="mp4rotate.exe"
                  uap10:TrustLevel="mediumIL" uap10:RuntimeBehavior="win32App">
       <uap:VisualElements
-        DisplayName="MP4 Rotate"
-        Description="Lossless MP4 rotation"
+        DisplayName="MP4/MOV Rotate"
+        Description="Lossless MP4/MOV rotation"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
@@ -56,15 +56,25 @@
       <Extensions>
         <desktop4:Extension Category="windows.fileExplorerContextMenus">
           <desktop4:FileExplorerContextMenus>
+            <!-- One command with its own submenu (see shell\mp4rotate_shell.cpp), for every
+                 ISO/QuickTime-family video type. The title follows the extension clicked. -->
             <desktop5:ItemType Type=".mp4">
-              <!-- One command with its own submenu (see shell\mp4rotate_shell.cpp). -->
+              <desktop5:Verb Id="mp4rotate" Clsid="63250DD9-966C-4225-8719-C7FC5F4FED90" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".mov">
+              <desktop5:Verb Id="mp4rotate" Clsid="63250DD9-966C-4225-8719-C7FC5F4FED90" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".m4v">
+              <desktop5:Verb Id="mp4rotate" Clsid="63250DD9-966C-4225-8719-C7FC5F4FED90" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".3gp">
               <desktop5:Verb Id="mp4rotate" Clsid="63250DD9-966C-4225-8719-C7FC5F4FED90" />
             </desktop5:ItemType>
           </desktop4:FileExplorerContextMenus>
         </desktop4:Extension>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
-            <com:SurrogateServer DisplayName="MP4 Rotate context menu">
+            <com:SurrogateServer DisplayName="MP4/MOV Rotate context menu">
               <com:Class Id="63250DD9-966C-4225-8719-C7FC5F4FED90" Path="mp4rotate_shell.dll" ThreadingModel="STA" />
             </com:SurrogateServer>
           </com:ComServer>
